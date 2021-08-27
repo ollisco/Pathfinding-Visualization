@@ -1,8 +1,8 @@
 
 # Screen
-WIDTH = 2000
-HEIGHT = 1000
-FPS = 60
+WIDTH = 1920
+HEIGHT = 1080
+FPS = 120
 FONT_NAME = 'comicsans'
 
 
@@ -12,5 +12,6 @@ WHITE = (255, 255, 255)
 GREEN = (0, 200, 0)
 RED = (200, 0, 0)
 BLUE = (0, 0, 200)
-
+PURPLE = (90, 50, 168)
+GRAY = (128, 128, 128)
 RANDOM_PROBABILITY = 0.4

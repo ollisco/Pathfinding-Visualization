@@ -61,7 +61,7 @@ def recunstruct_path(came_from, current):
 
 #
 def dijkstra(grid, start, goal, d, args=None):
-    # args = [unvisited_nodes, distance_from_start, came_from]
+    # args = [unvisited_nodes, distance_from_start, came_from, visited]
 
     # If run before
     if args is not None:
@@ -69,10 +69,11 @@ def dijkstra(grid, start, goal, d, args=None):
         unvisited_nodes = args[0]
         distance_from_start = args[1]
         came_from = args[2]
-
+        visited_nodes = args[3]
     # First time
     else:
         unvisited_nodes = []
+        visited_nodes = []
         distance_from_start = {}
         came_from = {}
         current = start
@@ -88,8 +89,16 @@ def dijkstra(grid, start, goal, d, args=None):
 
         unvisited_nodes = sorted(unvisited_nodes, key=lambda cordinate: distance_from_start[cordinate])
         current = unvisited_nodes[0]
-        unvisited_nodes.remove(current)
 
+        # No solution
+        if distance_from_start[current] == infinity:
+            return -1, None, [unvisited_nodes, distance_from_start, came_from, visited_nodes]
+        unvisited_nodes.remove(current)
+        visited_nodes.append(current)
+
+        if goal in visited_nodes:
+            return 0, recunstruct_path(came_from, goal), [unvisited_nodes, distance_from_start, came_from,
+                                                          visited_nodes]
         for neighbor in find_neighbors(grid, *current):
             x, y = neighbor
             if grid[x][y] == 3:
@@ -102,15 +111,15 @@ def dijkstra(grid, start, goal, d, args=None):
             if tentative_distance < distance_from_start[neighbor]:
                 came_from[neighbor] = current
                 distance_from_start[neighbor] = tentative_distance
-        return 1, recunstruct_path(came_from, current), [unvisited_nodes, distance_from_start, came_from]
+        return 1, recunstruct_path(came_from, current), [unvisited_nodes, distance_from_start, came_from, visited_nodes]
 
     # Check if algorithm complete or failed
-    if goal in list(came_from.keys()):
-        return 0, recunstruct_path(came_from, goal), [unvisited_nodes, distance_from_start, came_from]
+    if goal in came_from.keys():
+        return 0, recunstruct_path(came_from, goal), [unvisited_nodes, distance_from_start, came_from, visited_nodes]
 
     # No solution
     else:
-        return -1, None, [unvisited_nodes, distance_from_start, came_from]
+        return -1, None, [unvisited_nodes, distance_from_start, came_from, visited_nodes]
 
 
 if __name__ == '__main__':
