@@ -9,7 +9,7 @@ It's a pathfinging visualization Built in python3 using pygame.
 - run command `python3 run main.py` from terminal
 
 ### Download Windows Executable
-- Visit [ollico.se](https://ollisco.se)
+- Visit [ollisco.se](https://ollisco.se)
 - Find Pathfinding project
 - Download program
 
