@@ -15,9 +15,11 @@ def create_grid(rows, cols):
 def draw_square(surface, color, x, y, width, height):
     pygame.draw.rect(surface, color, ((x, y), (width, height)), 0)
 
+
 def print_grid(grid):
     for row in grid:
         print(row)
+
 
 class Visualizer:
     def __init__(self):
@@ -47,9 +49,9 @@ class Visualizer:
         self.stepindex = 0
         self.mazeindex = 0
 
-
         self.square = 30
-        self.spot_colors = [WHITE, BLUE, BLUE, BLACK, RED, GREEN, PURPLE, PURPLE]
+        self.spot_colors = [WHITE, BLUE, BLUE,
+                            BLACK, RED, GREEN, PURPLE, PURPLE]
         self.rows = int(self.height / self.square)
         self.cols = int(self.width / self.square)
         self.grid = create_grid(self.rows, self.cols)
@@ -100,31 +102,31 @@ class Visualizer:
                         self.maze_algorithm = 'Randomized DFS'
                         self.genmaze = True
 
-
-
-
-
-
             self.screen.fill(WHITE)
-            self.draw_text('PATHFINDING VISUALIZER', 70, BLACK, WIDTH / 2, HEIGHT * 0.10)
+            self.draw_text('PATHFINDING VISUALIZER', 70,
+                           BLACK, WIDTH / 2, HEIGHT * 0.10)
 
             # Menu
-            self.draw_text('Choose an algorithm by pressing corresponing key', 40, BLACK, WIDTH / 2, HEIGHT * 0.15)
+            self.draw_text('Choose an algorithm by pressing corresponing key',
+                           40, BLACK, WIDTH / 2, HEIGHT * 0.15)
 
-            self.draw_text(f'{self.algorithm} | {self.maze_algorithm}', 35, GREEN, WIDTH / 2, HEIGHT * 0 * 35)
+            self.draw_text(f'{self.algorithm} | {self.maze_algorithm}',
+                           35, GREEN, WIDTH / 2, HEIGHT * 0 * 35)
             self.draw_alternative('C Clear options', WIDTH / 4, HEIGHT * 0.35)
-            self.draw_alternative('I Information page', WIDTH -(WIDTH / 3), HEIGHT * 0.35)
-            self.draw_text('Press space to start', 50, BLACK, WIDTH / 2, HEIGHT - (HEIGHT / 8))
+            self.draw_alternative('I Information page',
+                                  WIDTH - (WIDTH / 3), HEIGHT * 0.35)
+            self.draw_text('Press space to start', 50, BLACK,
+                           WIDTH / 2, HEIGHT - (HEIGHT / 8))
 
             # Pathfinding
             self.draw_alternative('A A* ', WIDTH / 4, HEIGHT * 0.45)
             self.draw_alternative('B A* diagonals', WIDTH / 4, HEIGHT * 0.50)
-            self.draw_alternative("D Dijkstra's algorithm", WIDTH / 4, HEIGHT * 0.55)
+            self.draw_alternative("D Dijkstra's algorithm",
+                                  WIDTH / 4, HEIGHT * 0.55)
 
             # Maze
-            self.draw_alternative('1 Depth-First Search (MAZE)', WIDTH - (WIDTH / 3), HEIGHT * 0.45)
-
-
+            self.draw_alternative(
+                '1 Depth-First Search (MAZE)', WIDTH - (WIDTH / 3), HEIGHT * 0.45)
 
             pygame.display.flip()
 
@@ -145,10 +147,12 @@ class Visualizer:
                     waiting = False
 
             self.screen.fill(WHITE)
-            self.draw_text('Information Page', 70, BLACK, WIDTH / 2, HEIGHT * 0.10)
+            self.draw_text('Information Page', 70, BLACK,
+                           WIDTH / 2, HEIGHT * 0.10)
 
             # Menu
-            self.draw_text('Press M or Escape to goto main menu', 40, BLACK, WIDTH / 2, HEIGHT * 0.20)
+            self.draw_text('Press M or Escape to goto main menu',
+                           40, BLACK, WIDTH / 2, HEIGHT * 0.20)
 
             self.draw_alternative('Maze Generation is Calculated in advance while pathfinding is calculated at runtime',
                                   WIDTH / 10,
@@ -158,16 +162,17 @@ class Visualizer:
             self.draw_alternative('Dijkstra finishes completely to ensure optimal path', WIDTH / 4,
                                   HEIGHT * 0.40)
 
-
             self.draw_text('Keybinds', 40, BLACK, WIDTH / 2, HEIGHT / 2)
             self.draw_alternative('LMB: Draw walls', WIDTH / 3, HEIGHT * 0.60)
-            self.draw_alternative('LMB: Remove walls', WIDTH / 3, HEIGHT * 0.65)
+            self.draw_alternative('LMB: Remove walls',
+                                  WIDTH / 3, HEIGHT * 0.65)
             self.draw_alternative('S: Place Start', WIDTH / 3, HEIGHT * 0.70)
             self.draw_alternative('G: Place Goal', WIDTH / 3, HEIGHT * 0.75)
-            self.draw_alternative('R: Random wall pattern', WIDTH / 3, HEIGHT * 0.80)
+            self.draw_alternative('R: Random wall pattern',
+                                  WIDTH / 3, HEIGHT * 0.80)
             self.draw_alternative('SPACE: Start', WIDTH / 3, HEIGHT * 0.85)
-            self.draw_alternative('Q: Reinitialize program', WIDTH / 3, HEIGHT * 0.90)
-
+            self.draw_alternative('Q: Reinitialize program',
+                                  WIDTH / 3, HEIGHT * 0.90)
 
             pygame.display.flip()
 
@@ -195,7 +200,6 @@ class Visualizer:
             self.mazeindex += 1
             self.draw()
 
-
     def draw_maze(self):
         if self.maze_algorithm == 'Randomized DFS':
             self.grid = randomized_DFS_RB.maze_dfs(self.grid)
@@ -212,7 +216,6 @@ class Visualizer:
             self.clock.tick(FPS)
             self.events()
 
-
             if self.updating:
                 self.update()
 
@@ -221,8 +224,6 @@ class Visualizer:
     def quit(self):
         self.running = False
         self.visualizing = False  # if self.visualizing else True
-
-
 
     def events(self):
         for event in pygame.event.get():
@@ -240,7 +241,6 @@ class Visualizer:
                 if event.key == pygame.K_q:
                     self.__init__()
 
-
                 if event.key == pygame.K_m:
                     self.updating = False
                     self.new()
@@ -250,7 +250,8 @@ class Visualizer:
 
                         if event.key in [pygame.K_s, pygame.K_g]:
                             pos = pygame.mouse.get_pos()
-                            row, col = int(pos[0] / self.square), int(pos[1] / self.square)
+                            row, col = int(
+                                pos[0] / self.square), int(pos[1] / self.square)
                             # Set start
                             if event.key == pygame.K_s:
                                 if self.start is not None:
@@ -287,13 +288,17 @@ class Visualizer:
                 # Drawing walls
                 if pygame.mouse.get_pressed()[0]:
                     pos = pygame.mouse.get_pos()
-                    row, col = (int(pos[0] / self.square), int(pos[1] / self.square))  # Grid coordinates
+                    # Grid coordinates
+                    row, col = (int(pos[0] / self.square),
+                                int(pos[1] / self.square))
                     self.grid[col][row] = 3
 
                 # Removing nodes
                 if pygame.mouse.get_pressed()[2]:
                     pos = pygame.mouse.get_pos()
-                    row, col = (int(pos[0] / self.square), int(pos[1] / self.square))  # Grid coordinates
+                    # Grid coordinates
+                    row, col = (int(pos[0] / self.square),
+                                int(pos[1] / self.square))
                     self.grid[col][row] = 0
 
             except IndexError:
@@ -301,12 +306,11 @@ class Visualizer:
 
     def get_steps(self):
 
-        steps = real_astar.astar(self.grid, self.start, self.goal, real_astar.distance)
+        steps = real_astar.astar(
+            self.grid, self.start, self.goal, real_astar.distance)
 
         return steps
     # The algorithm
-
-
 
     def update(self):
 
@@ -323,7 +327,8 @@ class Visualizer:
                 self.first = False
 
             else:
-                a = algorithm(self.grid, self.start, self.goal, astar.distance, self.args)
+                a = algorithm(self.grid, self.start, self.goal,
+                              astar.distance, self.args)
                 if a == -1:
                     self.updating = False
 
@@ -351,7 +356,8 @@ class Visualizer:
         if self.algorithm == 'dijkstra':
 
             if self.first:
-                return_code, self.path, self.args = Dijkstra.dijkstra(self.grid, self.start, self.goal, astar.distance)
+                return_code, self.path, self.args = Dijkstra.dijkstra(
+                    self.grid, self.start, self.goal, astar.distance)
                 self.first = False
 
             else:
@@ -367,7 +373,6 @@ class Visualizer:
                         if self.grid[i][j] == 5:
                             self.grid[i][j] = 4
 
-
             elif return_code == 0:
                 print(0)
                 self.updating = False
@@ -379,14 +384,11 @@ class Visualizer:
             visited = self.args[3]
             unvisided = self.args[0]
 
-
             if return_code == 0:
                 color = 1
 
             else:
                 color = 5
-
-
 
             for i in range(len(self.grid)):
                 for j in range(len(self.grid[i])):
@@ -399,18 +401,15 @@ class Visualizer:
             for x, y in self.path:
                 self.grid[x][y] = 2
 
-
-
         self.grid[self.goal[0]][self.goal[1]] = 2
         self.grid[self.start[0]][self.start[1]] = 1
-
 
     def draw_alternative(self, text, x, y):
         self.draw_text(text, 30, GRAY, x, y, False)
 
     def draw_text(self, text, size, color, x, y, center=True):
        #font = pygame.font.Font(self.text_font_name, size)
-        font = pygame.font.Font("assets/ghostclanital.ttf", size)
+        font = pygame.font.SysFont('Arial', size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
         if center:
